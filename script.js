@@ -126,3 +126,7 @@ startButton.addEventListener('click', () => {
     game.displayTurn()
     startButton.style.display = 'none'
 });
+
+document.addEventListener('dblclick', (e) => {
+    e.preventDefault;
+})

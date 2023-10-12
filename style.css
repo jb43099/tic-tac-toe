@@ -65,3 +65,7 @@ body {
   background-color: #aaa;
   cursor: pointer;
 }
+
+.turn-div {
+  font-size: 2rem;
+}

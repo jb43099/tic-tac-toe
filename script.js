@@ -16,9 +16,12 @@ const gameBoard = (function () {
     };
 
     const clearGrid = () => {
-        for (let i = 0; i < grid.length + 1; i++) {
-            gridContainer.removeChild(gridContainer.firstChild)
+        while (gridContainer.firstChild) {
+            gridContainer.removeChild(gridContainer.firstChild);
         }
+        startButton.style.display = 'inline';
+        const turnDiv = document.querySelector('.turn-div')
+        turnDiv.remove()
     }
 
     return { grid, displayGrid, clearGrid }
@@ -41,6 +44,19 @@ const game = (function () {
         currentPlayer = currentPlayer === player1 ? player2 : player1
     };
 
+    const displayTurn = () => {
+        const turnContainer = document.querySelector('.turn-container')
+        const turnDiv = document.createElement('div')
+        turnDiv.classList.add('turn-div')
+        turnDiv.innerText = `${currentPlayer.choice} turn`
+        turnContainer.appendChild(turnDiv)
+    }
+
+    const updateTurn = (nextPlayer, selectedCell) => {
+        if (selectedCell.innerText !== '') return
+        const turnDiv = document.querySelector('.turn-div')
+        turnDiv.innerText = `${nextPlayer.choice} turn`
+    }
 
     const checkWinner = () => {
         const winCombos = [
@@ -66,7 +82,9 @@ const game = (function () {
     };
 
     const handleCellClick = (e) => {
+        const nextPlayer = currentPlayer == player1 ? player2 : player1
         const selectedCell = e.target
+        updateTurn(nextPlayer, selectedCell)
         if (selectedCell.innerText === '') {
             selectedCell.innerText = currentPlayer.choice
             updatePlayerArray(e)
@@ -88,10 +106,12 @@ const game = (function () {
         currentPlayer = player1
     };
 
-    return { player1, player2, startGame, togglePlayer, currentPlayer }
+    return { player1, player2, startGame, togglePlayer, currentPlayer, displayTurn }
 })();
 
 startButton.addEventListener('click', () => {
     gameBoard.displayGrid()
     game.startGame()
+    game.displayTurn()
+    startButton.style.display = 'none'
 });

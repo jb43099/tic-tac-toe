@@ -64,10 +64,27 @@ const game = (function () {
             ['0', '3', '6'], ['1', '4', '7'], ['2', '5', '8'], // Columns
             ['0', '4', '8'], ['2', '4', '6']                // Diagonals
         ]
+        let gridChosen = []
+        gridChosen = gridChosen.concat(player1.chosenArray, player2.chosenArray)
+        const turnDiv = document.querySelector('.turn-div')
 
         for (let combo of winCombos) {
             if (combo.every(cell => currentPlayer.chosenArray.includes(cell))) {
+                let winningPlayer = currentPlayer
+                turnDiv.innerText = `${winningPlayer.player} wins!`
+                setTimeout(() => {
+                    // alert(`${winningPlayer.player} wins!`)
+                    gameBoard.clearGrid()
+                }, 2500)
                 return true
+            }
+            if (gridChosen.length == 9 && !(combo.every(cell => currentPlayer.chosenArray.includes(cell)))) {
+                turnDiv.innerText = `Draw!`
+                setTimeout(() => {
+                    // alert(`Draw!`)
+                    gameBoard.clearGrid()
+                }, 2500)
+                return false
             }
         }
     };
@@ -88,13 +105,7 @@ const game = (function () {
         if (selectedCell.innerText === '') {
             selectedCell.innerText = currentPlayer.choice
             updatePlayerArray(e)
-            if (checkWinner() == true) {
-                let winningPlayer = currentPlayer
-                setTimeout(() => {
-                    alert(`${winningPlayer.player} wins!`)
-                    gameBoard.clearGrid()
-                }, 100)
-            }
+            checkWinner()
             togglePlayer()
         }
     };

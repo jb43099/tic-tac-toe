@@ -21,7 +21,7 @@ const gameBoard = (function () {
         }
         startButton.style.display = 'inline';
         const turnDiv = document.querySelector('.turn-div')
-        turnDiv.remove()
+        if (turnDiv) { turnDiv.remove() }
     }
 
     return { grid, displayGrid, clearGrid }
@@ -120,7 +120,7 @@ const game = (function () {
         gridContainer.style.pointerEvents = 'auto'
     };
 
-    return { player1, player2, startGame, togglePlayer, currentPlayer, displayTurn }
+    return { startGame, displayTurn }
 })();
 
 startButton.addEventListener('click', () => {
@@ -131,5 +131,5 @@ startButton.addEventListener('click', () => {
 });
 
 document.addEventListener('dblclick', (e) => {
-    e.preventDefault;
+    e.preventDefault();
 })

@@ -72,6 +72,7 @@ const game = (function () {
             if (combo.every(cell => currentPlayer.chosenArray.includes(cell))) {
                 let winningPlayer = currentPlayer
                 turnDiv.innerText = `${winningPlayer.player} wins!`
+                gridContainer.style.pointerEvents = 'none'
                 setTimeout(() => {
                     // alert(`${winningPlayer.player} wins!`)
                     gameBoard.clearGrid()
@@ -80,6 +81,7 @@ const game = (function () {
             }
             if (gridChosen.length == 9 && !(combo.every(cell => currentPlayer.chosenArray.includes(cell)))) {
                 turnDiv.innerText = `Draw!`
+                gridContainer.style.pointerEvents = 'none'
                 setTimeout(() => {
                     // alert(`Draw!`)
                     gameBoard.clearGrid()
@@ -115,6 +117,7 @@ const game = (function () {
         player1.chosenArray = []
         player2.chosenArray = []
         currentPlayer = player1
+        gridContainer.style.pointerEvents = 'auto'
     };
 
     return { player1, player2, startGame, togglePlayer, currentPlayer, displayTurn }

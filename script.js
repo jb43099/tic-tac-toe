@@ -79,7 +79,7 @@ const game = (function () {
                 }, 2500)
                 return true
             }
-            if (gridChosen.length == 9 && !(combo.every(cell => currentPlayer.chosenArray.includes(cell)))) {
+            if (!(combo.every(cell => currentPlayer.chosenArray.includes(cell))) && gridChosen.length == 9) {
                 turnDiv.innerText = `Draw!`
                 gridContainer.style.pointerEvents = 'none'
                 setTimeout(() => {
